@@ -3,13 +3,11 @@
 run:
     uvicorn app.index:app --reload
 
-
-
 migrate:
-    docker exec -it auth-service sh -c "aerich migrate"
+    docker exec -it notification-service sh -c "aerich migrate"
 
 upgrade:
-    docker exec -it auth-service sh -c "aerich upgrade"
+    docker exec -it notification-service sh -c "aerich upgrade"
 
 cli name:
-    faskapi generate route {{name}}
+    fastapi generate route {{name}}

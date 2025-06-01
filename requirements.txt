@@ -1,2 +1,19 @@
 # MAIN
 fastapi
+fastapi-cli
+uvicorn
+# DB
+asyncpg
+tortoise-orm
+tomlkit
+aerich
+# EVENT
+aiokafka
+# CONFIG
+httpx
+# TESTING
+pytest-asyncio #for testing async views (probably)
+pytest
+# EMAIL
+aiomail
+fastapi-mail

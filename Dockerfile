@@ -1,4 +1,4 @@
-FROM python:3.13-alpine
+FROM python:3.13-slim
 
 LABEL maintainer="codeBuddha"
 
@@ -6,19 +6,16 @@ WORKDIR /notification-service
 
 COPY ./ /notification-service/
 
-RUN apk add --no-cache \
-    build-base \
+RUN apt update && apt install -y \
+    build-essential \
     libffi-dev \
-    postgresql-dev \
-    musl-dev \
+    libpq-dev \
     gcc \
-    python3-dev \
-    libpq \
-    libc-dev \
+    && rm -rf /var/lib/apt/lists/* \
     && pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-RUN addgroup -S jam && adduser -S jam -G jam \
-    && chown -R jam:jam /notification-service \
+RUN adduser --disabled-password --no-create-home --gecos "" jam  \
+    && chown -R jam /notification-service \
     && chmod -R 755 /notification-service
 
 USER jam
