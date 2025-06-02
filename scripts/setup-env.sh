@@ -19,6 +19,12 @@ DB_PORT=5433
 
 ALLOWED_HOSTS=http://localhost,127.0.0.1
 CORS_ALLOWED_HOSTS=http://localhost:3000,http://127.0.0.1:3000
+AUTH_SERVICE_URL=http://localhost:1000
+
+MAIL_USERNAME=PLACEHOLDER
+MAIL_PASSWORD=PLACEHOLDER
+MAIL_FROM=PLACEHOLDER
+MAIL_SERVER=smtp.gmail.com
 EOF
 
     echo "created env file at $(pwd) with vars: "
