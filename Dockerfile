@@ -6,13 +6,8 @@ WORKDIR /notification-service
 
 COPY ./ /notification-service/
 
-RUN apt update && apt install -y \
-    build-essential \
-    libffi-dev \
-    libpq-dev \
-    gcc \
-    && rm -rf /var/lib/apt/lists/* \
-    && pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+RUN  pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
 
 RUN adduser --disabled-password --no-create-home --gecos "" jam  \
     && chown -R jam /notification-service \
@@ -22,3 +17,11 @@ USER jam
 
 EXPOSE 2000
 CMD ["uvicorn", "app.index:app", "--host", "0.0.0.0", "--port", "2000", "--reload"]
+
+
+    # apt update && apt install -y \
+    # build-essential \
+    # libffi-dev \
+    # libpq-dev \
+    # gcc \
+    # && rm -rf /var/lib/apt/lists/* \

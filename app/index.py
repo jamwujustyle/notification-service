@@ -3,6 +3,7 @@ import asyncio
 from contextlib import asynccontextmanager
 from .kafka_consumer import start_kafka_consumer
 from .email_service import EmailService
+from .configs.logging_config import logger
 
 
 kafka_consumer_task = None
@@ -30,8 +31,5 @@ email_service = EmailService()
 
 @app.get("/health")
 async def health_check():
+    logger.critical("hello world")
     return {"status": "healthy"}
-
-
-def home():
-    return "<h1>Hello world</h1>"

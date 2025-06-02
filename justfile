@@ -1,7 +1,7 @@
 # justfile
 
-run:
-    uvicorn app.index:app --reload
+start:
+    ./scripts/start-dev.sh
 
 migrate:
     docker exec -it notification-service sh -c "aerich migrate"
@@ -11,3 +11,4 @@ upgrade:
 
 cli name:
     fastapi generate route {{name}}
+

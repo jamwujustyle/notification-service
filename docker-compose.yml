@@ -4,34 +4,26 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command:
-      sh -c "
-            uvicorn app.index:app --host 0.0.0.0 --port 2000 --reload
-            "
-            # aerich init-db
-            # aerich migrate &&
-            # aerich upgrade &&
-
-    env_file:
-      - ./.env
-
-    volumes:
-      - ./:/notification-service
-    depends_on:
-      - notification-db
-
-  notification-db:
-    image: postgres:16.2-alpine
-    volumes:
-      - notification_data:/var/lib/postgresql/data
-    env_file:
-      - ./.env
+    command: >
+      sh -c "uvicorn app.index:app --host 0.0.0.0 --port 2000 --reload"
     environment:
-      POSTGRES_NAME: ${DB_NAME:-db}
-      POSTGRES_USER: ${DB_USR:-dev}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-pass}
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      AUTH_SERVICE_URL: ${AUTH_SERVICE_URL:-http://auth-service:1000}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_SERVER: ${MAIL_SERVER:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+    env_file:
+      - ./.env
+    volumes:
+      - ./:/notification-service:cached
     ports:
-      - ${DB_PORT:-5433}:5432
+      - "2000:2000"
+    user: "1000:1000"
+    networks:
+      - microservices-net
 
-volumes:
-  notification_data:
+networks:
+  microservices-net:
+    external: true
