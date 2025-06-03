@@ -8,6 +8,7 @@ email_service = EmailService()
 
 async def handle_user_registered_event(event_data: dict):
     """Handle user registration event by sending verification email"""
+    logger.info(f"Received user-registered event: {event_data}")
     try:
         user_id = event_data["user_id"]
         email = event_data["email"]

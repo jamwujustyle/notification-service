@@ -27,7 +27,7 @@ async def start_kafka_consumer():
             async for message in consumer:
                 event_data = message.value
 
-                if event_data.get("event_type") == "user-registeted":
+                if event_data.get("event_type") == "user_registered":
                     await handle_user_registered_event(event_data)
         except Exception as ex:
             logger.debug(f"Error in Kafka consumer: {ex}")
