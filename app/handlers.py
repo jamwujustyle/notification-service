@@ -14,7 +14,9 @@ async def handle_user_registered_event(event_data: dict):
         email = event_data["email"]
         name = event_data["name"]
 
-        auth_service_url = os.environ.get("AUTH_SERVICE_URL", "http://localhost:1000")
+        auth_service_url = os.environ.get(
+            "AUTH_SERVICE_URL", "http://auth-service:1000"
+        )
 
         async with httpx.AsyncClient() as client:
             response = await client.get(

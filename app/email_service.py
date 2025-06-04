@@ -1,6 +1,9 @@
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 import os
 from typing import List
+from .configs.logging_config import logger
+
+logger.critical(os.environ.get("AUTH_SERVICE_URL"))
 
 
 class EmailService:
@@ -24,10 +27,8 @@ class EmailService:
     ):
         """Send email verification email"""
         auth_service_url = os.environ.get("AUTH_SERVICE_URL", "http://localhost:1000")
-        verification_link = (
-            f"{auth_service_url}/auth/verify-email?user_id&token-{verification_token}"
-        )
-
+        verification_link = f"{auth_service_url}/auth/verify-email?user_id={user_id}&token={verification_token}"
+        logger.critical(f"url: {auth_service_url}")
         html_content = f"""
         <html>
         <body>
