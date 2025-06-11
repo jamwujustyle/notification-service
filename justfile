@@ -12,3 +12,6 @@ upgrade:
 cli name:
     fastapi generate route {{name}}
 
+
+stop:
+    docker-compose stop

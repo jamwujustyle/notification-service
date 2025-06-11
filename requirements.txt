@@ -9,6 +9,7 @@ tomlkit
 aerich
 # EVENT
 aiokafka
+python-snappy
 # CONFIG
 httpx
 # TESTING
